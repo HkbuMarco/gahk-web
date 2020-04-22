@@ -41,8 +41,8 @@ module.exports = {
 
     if (req.method == 'POST') {
       var coach = await Coach.create(req.session.data).fetch();
-     coach.ChiName=req.session.ChiName;
-     coach.EngName=req.session.EngName;
+    //  coach.ChiName=req.session.ChiName;
+    //  coach.EngName=req.session.EngName;
      coach.FormNum=req.session.Email;
      
 

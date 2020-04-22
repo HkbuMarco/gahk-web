@@ -920,6 +920,11 @@
           <a download="個人相片.jpeg" href="<%=coach.Personal_photo%>" target="_blank">下載</a>
 
           <% } %>
+          <br>
+          <% if (coach.Personal_photo) { %>
+          <img src="<%=coach.Personal_photo%>" width="100" height=auto />
+          <input type="hidden" name="Coach[Personal_photo]" value="<%= coach.Personal_photo%>" />
+          <% } %>
       </div> 
       <br>
       <div class="form-group">

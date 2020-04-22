@@ -200,12 +200,13 @@
     <p style="font-size:16px"><b>4. 個人資料 Personal Particulars：</b></p>
 
     <div class="form-group">
-      <label style="font-size:13px">上載個人相片 Upload a personal photo</label>
+      <label style="font-size:13px">上載個人相片 Upload a personal photo</label><label style="font-size:14px;color:red">
+        * </label>
       <input type="file" accept="image/*" onchange="handleFile4(this.files)" required />
       <div id="preview4">
 
         <% if (data.Personal_photo) { %>
-          <img src="<%=data.Personal_photo%>" />
+          <img src="<%=data.Personal_photo%>" width="100" height=auto/>
           <input type="hidden" name="Coach[Personal_photo]" value="<%= data.Personal_photo%>" />
           <% } %>
 
@@ -220,24 +221,16 @@
         Name (Eng)</label><label style="font-size:14px;color:red">
         *
       </label>
-      <label style="font-size:13px"> <%= req.session.EngName%>
-      
-      </label><label style="font-size:14px;color:red">
-        *
-      </label>
-
-      <input type="hidden" name="Coach[EngName]" value="<%= req.session.EngName%>"style.visibility = 'hidden'
-       required>
-
-      <input type="text" name="Coach[FormNum]" value="<%= req.session.Email%>"
-      style="font-size:13px" required>
-
+      <input type="text" name="Coach[Engname]" value="<%= req.session.user.EngName%>"
+        onkeyup="value=value.replace(/[^\a-\z\A-\Z]/g,' ')" required readonly>
+    
       <label style="font-size:13px">姓名 (中文)
         Name (Chi)</label><label style="font-size:14px;color:red">
         *
       </label>
-      <input type="text" name="Coach[ChiName]" value="<%= req.session.ChiName%>"
-        onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required>
+      <input type="text" name="Coach[ChiName]" value="<%= req.session.user.ChiName%>"
+        onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" required readonly>
+      <!-- <label type="text" style="font-size: 20px;color: blue;" ><%= req.session.user.ChiName%></label> -->
     </div>
     <br>
     <div class="form-group">
@@ -265,6 +258,11 @@
       <label style="font-size:14px">男 Male</label>
       <%} else {%>
       <input type="radio" name="Coach[Gender]" value="女" required>
+
+      <input type="hidden" name="Coach[FormNum]" value="<%= req.session.Email%>"
+      style="font-size:13px" required>
+
+ 
       <label style="font-size:14px">女 Female</label>
       <input type="radio" name="Coach[Gender]" value="男" required>
       <label style="font-size:14px">男 Male</label>
@@ -294,6 +292,9 @@
         </label></span>
       <select name="Coach[Education]" value="<%= data.Education%>" required>
         <option value="">請選擇 Please select</option>
+        <option value="Associate">Foundation diploma</option>
+        <option value="Associate">High diploma</option>
+        <option value="Associate">Professional diploma</option>
         <option value="Associate">Associate degree</option>
         <option value="Bachelor">Bachelor’s degree</option>
         <option value="Master">Master’s degree</option>
@@ -309,8 +310,10 @@
       </div>
 
 
-      <label style="font-size:12px"> *請提供相關證書副本
-        * Please provide certificate copies
+      <label style="font-size:12px"> <label style="font-size:14px;color:red">
+        * </label>請提供相關證書副本
+        <label style="font-size:14px;color:red">
+          * </label>Please provide certificate copies
       </label>
     </div>
 
@@ -353,14 +356,14 @@
     <br>
     <div class="form-group">
       <label style="font-size:13px"> 電郵地址
-        Email address
+        Email address : 
       </label>
-      </label><label style="font-size:14px;color:red">
-        *
       </label>
-      <input type="email" name="Coach[Email]" value="<%= data.Email%>"
-        pattern="[a-zA-Z0-9.!#$%&amp;’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+" style="width:300pt" required>
-      <label style="font-size:12px"> *以此電郵作主要通訊之用
+      <!-- <label type="email" style="font-size: 20px;color: blue;" ><%= req.session.user.Email%></label> -->
+      <input type="email" name="Coach[Email]" value="<%= req.session.user.Email%>"
+        pattern="[a-zA-Z0-9.!#$%&amp;’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+" style="width:300pt" required >
+      <label style="font-size:12px"> <label style="font-size:14px;color:red">
+        * </label>以此電郵作主要通訊之用
       </label>
     </div>
     <br>
@@ -619,7 +622,8 @@
         <% }%> -->
     </div>
     <br><br>
-    <p style="font-size:16px"> <b>7. 達標事項 Target Achieved： * 此部份只適用於 續領註冊 申請者 For renewal only
+    <p style="font-size:16px"> <b>7. 達標事項 Target Achieved： <label style="font-size:14px;color:red">
+      * </label> 此部份只適用於 續領註冊 申請者 For renewal only
       <br>
       (如空位不敷應用，請另紙填寫 If space is insufficient, please provide details in a separate sheet)</b>
     </p>
@@ -870,17 +874,20 @@
         access to personal data after submission of the application form, please contact our office staff.
       </p>
       <% if (data.hope=="希望"){ %>
-      <label style="font-size:12px">本人 *</label>
+      <label style="font-size:12px">本人 <label style="font-size:14px;color:red">
+        * </label></label>
       <input type="radio" name="Coach[hope]" value="希望" checked>
       <label style="font-size:12px">希望 /</label>
       <input type="radio" name="Coach[hope]" value="不希望">
       <% }else if (data.hope=="不希望"){%>
-      <label style="font-size:12px">本人 *</label>
+      <label style="font-size:12px">本人 <label style="font-size:14px;color:red">
+        * </label></label>
       <input type="radio" name="Coach[hope]" value="希望">
       <label style="font-size:12px">希望 /</label>
       <input type="radio" name="Coach[hope]" value="不希望" checked>
       <%} else {%>
-      <label style="font-size:12px">本人 *</label>
+      <label style="font-size:12px">本人 <label style="font-size:14px;color:red">
+        * </label></label>
       <input type="radio" name="Coach[hope]" value="希望" required>
       <label style="font-size:12px">希望 /</label>
       <input type="radio" name="Coach[hope]" value="不希望" required>
@@ -889,21 +896,24 @@
       <label style="font-size:12px">不希望 收取 貴會有關教練或裁判課程的宣傳資料。</label>
       <br><br>
       <% if (data.hope=="hopepage"){ %>
-      <label style="font-size:12px"> I *</label>
+      <label style="font-size:12px"> I <label style="font-size:14px;color:red">
+        * </label></label>
       <input type="radio" name="Coach[hope]" value="hopepage" checked>
       <label style="font-size:12px">wish</label>
       <input type="radio" name="Coach[hope]" value="not_hope">
       <label style="font-size:12px"> do not wish to receive any further coaching / judging information on GAHK.
       </label>
       <% }else if (data.hope=="not_hope"){%>
-      <label style="font-size:12px"> I *</label>
+      <label style="font-size:12px"> I <label style="font-size:14px;color:red">
+        * </label></label>
       <input type="radio" name="Coach[hope]" value="hopepage">
       <label style="font-size:12px">wish</label>
       <input type="radio" name="Coach[hope]" value="not_hope" checked>
       <label style="font-size:12px"> do not wish to receive any further coaching / judging information on GAHK.
       </label>
       <%} else {%>
-      <label style="font-size:12px"> I *</label>
+      <label style="font-size:12px"> I <label style="font-size:14px;color:red">
+        * </label></label>
       <input type="radio" name="Coach[hope]" value="hopepage" required>
       <label style="font-size:12px">wish</label>
       <input type="radio" name="Coach[hope]" value="not_hope" required>
@@ -925,14 +935,15 @@
 
 
             <% if (data.avatar_sign) { %>
-              <img src="<%=data.avatar_sign%>" />
+              <img src="<%=data.avatar_sign%>" width="200" height=auto/>
               <input type="hidden" name="Coach[avatar_sign]" value="<%= data.avatar_sign%>" />
               <% } %>
 
           </div>
        
     </div>
-    <label style="font-size:10px">* (現職體育教師必須得到校長簽署及學校蓋印<br>
+    <label style="font-size:10px"><label style="font-size:14px;color:red">
+      * </label> (現職體育教師必須得到校長簽署及學校蓋印<br>
       Principal's signature and school chop are
       required for P.E. teacher)</label>
 </div>

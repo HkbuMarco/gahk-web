@@ -13,8 +13,8 @@
           <th scope="col">教練編號</th>
           <th scope="col">類別</th>
           <th scope="col">中文名</th>
+          <th scope="col">結果</th>
           <th scope="col">狀態</th>
-          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
@@ -69,12 +69,12 @@
         <td><%= model.New_coach %></td>
         <td><a href="/coach/update_coach/<%=model.id%>"> <%= model.ChiName %> </a></td>
         <% if (model.comfirm_coach == "是" ){ %>
-        <td>已審批</td>
-        <td><button type="button" class="btn btn-primary">審批完畢</button></td>
+        <td>  已審批</td>
+        <td>審批完畢</td>
 
         <% } else if (model.comfirm_coach == "否" ){ %>
-        <td>已拒絕</td>
-        <td><button type="button" class="btn btn-primary">審批完畢</button></td>
+        <td>  已拒絕</td>
+        <td>審批完畢</td>
         <%}%>
           </tr>
   
@@ -110,11 +110,11 @@
         <td><a href="/coach/update_coach/<%=model.id%>"> <%= model.ChiName %> </a></td>
         <% if (model.comfirm_coach == "是" ){ %>
         <td>已審批</td>
-        <td><button type="button" class="btn btn-primary">審批完畢</button></td>
+        <td>審批完畢</td>
 
         <% } else if (model.comfirm_coach == "否" ){ %>
         <td>已拒絕</td>
-        <td><button type="button" class="btn btn-primary">審批完畢</button></td>
+        <td>審批完畢</td>
         <%}%>
           </tr>
   
@@ -147,9 +147,9 @@
               <th scope="col">#</th>
               <th scope="col">教練編號</th>
               <th scope="col">類別</th>
-              <th scope="col">中文名</th>
+              <th scope="col">姓名</th>
+              <th scope="col">結果</th>
               <th scope="col">狀態</th>
-              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
