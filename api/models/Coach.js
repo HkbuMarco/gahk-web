@@ -18,6 +18,12 @@ module.exports = {
       type: 'string'
     },
 
+
+    worksFor: {
+      collection: 'User',
+      via: 'supervises'
+    },
+
     FormNum: {
      type : 'string'
 

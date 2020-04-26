@@ -227,7 +227,7 @@
 
 
               <% coach.forEach(function(model) { %>
-              <% if (model.ChiName != "" && model.FormNum==req.session.Email){ %>
+              <% if (model.ChiName != "" && model.FormNum==req.session.Email&& (model.comfirm_coach==""||model.comfirm_coach=="否") ){ %>
               <tr>
                 <th scope="row"></th>
                 <td>INDC<%=model.CoachNo%></td>
@@ -241,7 +241,7 @@
 
                 <% }
                 
-                else if (model.comfirm_coach == "是" ){ %>
+                else if (model.ConfirmPoint == "3" ){ %>
                 <td>已審批</td>
                 <% } 
                  
@@ -252,7 +252,36 @@
               
             </tr>
 
-            <%}%>
+            <%} else if(model.ChiName != "" && model.FormNum==req.session.Email && model.ConfirmPoint==3){%>
+              <tr>
+                <th scope="row"></th>
+                <td>INDC<%=model.CoachNo%></td>
+                <td><%= model.New_coach %></td>
+                <td><a href="/coach/update_coach/<%=model.id%>"><%= model.ChiName %> </a></td>
+
+                <% if (model.comfirm_coach == "" ){ %>
+                <td>待審批</td>
+
+
+
+                <% }
+                
+                else if (model.ConfirmPoint == "3" ){ %>
+                <td>已審批</td>
+                <% } 
+                 
+              else if (model.comfirm_coach == "否" ){ %>
+                <td>已拒絕</td>
+                <%}%>
+
+              
+            </tr>
+
+            <%}
+            
+            
+            %>
+            
 
                 <% }); %>
 

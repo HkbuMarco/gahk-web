@@ -17,6 +17,11 @@ module.exports = {
       type: 'string'
     },
 
+    supervises: {
+      collection: 'Coach',
+      via: 'worksFor'
+    },
+
     Username: {
       type: 'string'
     },

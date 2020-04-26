@@ -5,7 +5,7 @@
 <div class="row text-center">
   
   <% coach.forEach(function(model) { %>
-      <% if (model.Disciplines1=="MAG" && model.comfirm_coach=="是"){ %>
+      <% if (model.Disciplines1=="MAG" && model.ConfirmPoint=="3"){ %>
         <div class="col-6">
           <div class="card" style="width:250px">
             <img class="card-img-top" src="<%=model.Personal_photo%>" alt="Card image" style="width:100%">

@@ -69,7 +69,7 @@ module.exports = {
       //   to: coach.Email,
       //   from: sails.config.custom.mailgunFrom,
       //   subject: '已收到閣下的申請表',
-      //   text: 'Your message'
+      //   text: sails.views.membership.Email3
       // });
 
 
@@ -85,6 +85,18 @@ module.exports = {
   },
 
   confirm_coach: async function (req, res) {
+
+
+    if (!await User.findOne(req.session.userId)) return res.notFound();
+        
+        const thatPerson = await Coach.findOne(req.params.id).populate("worksFor", {id: req.session.userId});
+
+        if (!thatPerson) return res.notFound();
+            
+        if (thatPerson.worksFor.length)
+            return res.status(451).send("Already aprroved.");   // conflict
+  
+     await User.addToCollection(req.session.userId, 'supervises').members([req.params.id]);
     
     
    
