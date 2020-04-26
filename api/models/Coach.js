@@ -23,6 +23,12 @@ module.exports = {
 
     },
 
+    FormSubmit:{
+
+      type : 'string'
+
+    },
+
 
 
     CoachNo: {

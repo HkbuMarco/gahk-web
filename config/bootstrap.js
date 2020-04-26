@@ -19,9 +19,9 @@ module.exports.bootstrap = async function(done) {
   const admin = await User.findOne({Username:'admin1'});
   if (!admin) {
     await User.create({Username:'admin1', Password:await bcrypt.hash('hkbu123456', 10), role:'admin',ChiName:'管理員',EngName:'Administrator',Email:'kenny@admin.com',Date:new Date()});
-    await User.create({Username:'admin2', Password:await bcrypt.hash('hkbu123456', 10), role:'admin',ChiName:'管理員',EngName:'Administrator',Email:'kennycheng@comp.hkbu.edu.hk',Date:new Date()});
+    await User.create({Username:'admin2', Password:await bcrypt.hash('hkbu123456', 10), role:'admin',ChiName:'管理員',EngName:'Administrator',Email:'17228786@life.hkbu.edu.hk',Date:new Date()});
     await User.create({Username:'coach1', Password:await bcrypt.hash('hkbu123456', 10), role:'coach',ChiName:'陳大文',EngName:'Coach',Email:'coach@coach.com',Date:new Date()});
-    await User.create({Username:'coach2', Password:await bcrypt.hash('hkbu123456', 10), role:'coach',ChiName:'教練',EngName:'Coach',Email:'coach2@coach.com',Date:new Date()});
+    await User.create({Username:'coach2', Password:await bcrypt.hash('hkbu123456', 10), role:'coach',ChiName:'陳大文',EngName:'Coach',Email:'coach2@coach.com',Date:new Date()});
   }
 
   if (await Email.count() == 0) {
@@ -43,6 +43,9 @@ module.exports.bootstrap = async function(done) {
       {"category":"特別通告以及本會運動員及海外比賽消息", "startDate":new Date('2019-09-24'), "endDate":new Date("2020-09-24"), "content":"恭喜香港健美體操隊在2019年9月10 日至15日於上海舉辦之2019年全國健美操聯賽第四站取得優異成績。 運動員葉慧雯、吳倩儀、吳浩嵐、胡栢賢及李泳怡於成人組精英組五人操進入決賽；葉慧雯、吳倩儀及吳浩嵐更以第七名的成績晉級決賽，成續優異。", "link":"http://www.gahk.org.hk/doc/website_AERShanghai.pdf"},
     ]);
   }
+
+
+  
 
   return done();
 };

@@ -18,42 +18,73 @@
         </tr>
       </thead>
       <tbody>
+        <% coach.forEach(function(model){ %>
 
+          <% if(model.ChiName!=""&& model.comfirm_coach=="中"){%>
+  
+  
+          <tr>
+            <th scope="row"></th>
+            <td>waiting...</td>
+            <td><%=model.New_coach%></td>
+            <td> <a href="/coach/update_coach/<% model.id%>"> <%=model.ChiName%> </a> </td>
+            <td>處理中</td>
+            <td><button type="button" class="btn btn-secondary" onclick="confirmCoach('<% model.id%>')">審批 </button></td>
+            <td><button type="button" class="btn btn-danger" onclick="cancelCoach('<%model.id%>')">拒絕</button> </td>
+          </tr>
+  
+          <%}%>
+          <%});%>
+  
 
-
-
-        <% coach.forEach(function(model) { %>
-        <% if (model.ChiName != ""&& model.comfirm_coach==""){ %>
-        <tr>
-
-          <th scope="row"></th>
-          <td>waiting...</td>
-          <td><%= model.New_coach %></td>
-          <td><a href="/coach/update_coach/<%=model.id%>"> <%= model.ChiName %> </a></td>
-          <!-- <% if (model.comfirm_coach == "" ){ %> -->
-          <td>待審批</td>
-          <td><button type="button" class="btn btn-secondary" onclick="confirmCoach('<%= model.id%>')">審批</button></td>
-          <td><button type="button" class="btn btn-danger" onclick="cancelCoach('<%= model.id%>')">拒絕</button></td>
-
-          <!-- <% }
-          else if (model.comfirm_coach == "是" ){ %>
-          <td>已審批</td>
-          <td><button type="button" class="btn btn-primary">asdsd</button></td>
-
-          <% } else if (model.comfirm_coach == "否" ){ %>
-          <td>已拒絕</td>
-          <td><button type="button" class="btn btn-primary">已拒絕</button></td>
-          <%}%> -->
-
-        </tr>
-
-        <%}%>
-          <% }); %>
 
 
       </tbody>
     </table>
 
+    <table class="table">
+
+      <tbody>
+
+        
+        <% coach.forEach(function(model) { %>
+          <% if (model.ChiName != ""&& model.comfirm_coach==""){ %>
+          <tr>
+  
+            <th scope="row"></th>
+            <td>waiting...</td>
+            <td><%= model.New_coach %></td>
+            <td><a href="/coach/update_coach/<%=model.id%>"> <%= model.ChiName %> </a></td>
+            <!-- <% if (model.comfirm_coach == "" ){ %> -->
+            <td>待審批</td>
+            <td><button type="button" class="btn btn-primary" onclick="processingCoach('<%= model.id%>')">開始處理 </button>
+            </td>
+            </td>
+            <td><button type="button" class="btn btn-secondary" onclick="confirmCoach('<%= model.id%>')">審批</button></td>
+  
+            <td><button type="button" class="btn btn-danger" onclick="cancelCoach('<%= model.id%>')">拒絕</button></td>
+  
+            <!-- <% }
+            else if (model.comfirm_coach == "是" ){ %>
+            <td>已審批</td>
+            <td><button type="button" class="btn btn-primary">asdsd</button></td>
+  
+            <% } else if (model.comfirm_coach == "否" ){ %>
+            <td>已拒絕</td>
+            <td><button type="button" class="btn btn-primary">已拒絕</button></td>
+            <%}%> -->
+  
+          </tr>
+  
+          <%}%>
+            <% }); %>
+
+
+        
+
+      </tbody>
+
+    </table>
 
     <table class="table">
 
@@ -69,18 +100,16 @@
         <td><%= model.New_coach %></td>
         <td><a href="/coach/update_coach/<%=model.id%>"> <%= model.ChiName %> </a></td>
         <% if (model.comfirm_coach == "是" ){ %>
-        <td>  已審批</td>
+        <td> 已審批</td>
         <td>審批完畢</td>
 
         <% } else if (model.comfirm_coach == "否" ){ %>
-        <td>  已拒絕</td>
+        <td> 已拒絕</td>
         <td>審批完畢</td>
         <%}%>
           </tr>
   
           <%}%>
-
-
 
 
         <% }); %>
@@ -112,7 +141,9 @@
         <td>已審批</td>
         <td>審批完畢</td>
 
-        <% } else if (model.comfirm_coach == "否" ){ %>
+        <% } 
+       
+        else if (model.comfirm_coach == "否" ){ %>
         <td>已拒絕</td>
         <td>審批完畢</td>
         <%}%>
@@ -133,117 +164,183 @@
     <form method="get" action="/coach/export_xlsx">
       <button type="submit" class="btn btn-primary">Export</button>
 
-    <% } %>
+      <% } %>
 
-    <% if (req.session.role == 'coach') {%>
+      <% if (req.session.role == 'coach') {%>
 
-    <section class="content aboutus flex-lg-grow-1">
-      <h5 class="main-heading1">審批<span class="highlight">列表</span></h5>
-      <div class="container-fluid">
+      <section class="content aboutus flex-lg-grow-1">
+        <h5 class="main-heading1">審批<span class="highlight">列表</span></h5>
+        <div class="container-fluid">
 
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">教練編號</th>
-              <th scope="col">類別</th>
-              <th scope="col">姓名</th>
-              <th scope="col">結果</th>
-              <th scope="col">狀態</th>
-            </tr>
-          </thead>
-          <tbody>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">教練編號</th>
+                <th scope="col">類別</th>
+                <th scope="col">姓名</th>
+                <th scope="col">結果</th>
+                <th scope="col">狀態</th>
+              </tr>
+            </thead>
+            <tbody>
 
 
-            <% coach.forEach(function(model) { %>
-            <% if (model.ChiName != "" && model.FormNum==req.session.Email){ %>
-            <tr>
-              <th scope="row"></th>
-              <td>INDC<%=model.CoachNo%></td>
-              <td><%= model.New_coach %></td>
-              <td><%= model.ChiName %> </a></td>
+              <% coach.forEach(function(model) { %>
+              <% if (model.ChiName != "" && model.FormNum==req.session.Email){ %>
+              <tr>
+                <th scope="row"></th>
+                <td>INDC<%=model.CoachNo%></td>
+                <td><%= model.New_coach %></td>
+                <td><%= model.ChiName %> </a></td>
 
-              <% if (model.comfirm_coach == "" ){ %>
-              <td>待審批</td>
+                <% if (model.comfirm_coach == "" ){ %>
+                <td>待審批</td>
 
-              <% }else if (model.comfirm_coach == "是" ){ %>
-              <td>已審批</td>
 
-              <% } else if (model.comfirm_coach == "否" ){ %>
-              <td>已拒絕</td>
-              <%}%>
+
+                <% }
+                
+                else if (model.comfirm_coach == "是" ){ %>
+                <td>已審批</td>
+                <% } 
+                 
+              else if (model.comfirm_coach == "否" ){ %>
+                <td>已拒絕</td>
+                <%}%>
 
               
             </tr>
 
             <%}%>
 
-              <% }); %>
+                <% }); %>
 
-          </tbody>
-        </table>
+            </tbody>
+          </table>
 
 
-        <% } %>
-        <script>
+          <% } %>
+          <script>
 
-          async function confirmCoach(id) {
+            async function confirmCoach(id) {
 
-            var r = confirm("Confirm Coach?");
+              var r = confirm("Confirm Coach?");
 
-            if (r) {
+              if (r) {
 
-              var response = await fetch("/coach/confirm_coach/" + id, {
-                method: "POST",
-                credentials: 'same-origin',
-              });
+                var response = await fetch("/coach/confirm_coach/" + id, {
+                  method: "POST",
+                  credentials: 'same-origin',
+                });
 
-              if (response.ok) {
-                var data = await response.json();
-                alert(data.message);
-                window.location = data.url;
+                if (response.ok) {
+                  var data = await response.json();
+                  alert(data.message);
+                  window.location = data.url;
+                } else {
+                  alert(response.status + ": " + response.statusText);
+                }
+
               } else {
-                alert(response.status + ": " + response.statusText);
+                alert("cancelled");
               }
 
-            } else {
-              alert("cancelled");
-            }
+            };
 
-          };
 
-          async function cancelCoach(id) {
+            async function processingCoach(id) {
 
-            var r = confirm("Reject Coach?");
+              var r = confirm("Confirm Coach?");
 
-            if (r) {
+              if (r) {
 
-              var response = await fetch("/coach/canel_coach/" + id, {
-                method: "POST",
-                credentials: 'same-origin',
-              });
+                var response = await fetch("/coach/processing_coach/" + id, {
+                  method: "POST",
+                  credentials: 'same-origin',
+                });
 
-              if (response.ok) {
-                var data = await response.json();
-                alert(data.message);
-                window.location = data.url;
+                if (response.ok) {
+                  var data = await response.json();
+                  alert(data.message);
+                  window.location = data.url;
+                } else {
+                  alert(response.status + ": " + response.statusText);
+                }
+
               } else {
-                alert(response.status + ": " + response.statusText);
+                alert("cancelled");
               }
 
-            } else {
-              alert("cancelled");
+            };
+
+            // async function processingCoach(id) {
+            //   var r = confirm("Start to review？")
+            //   if (r) {
+            //     var response = await fetch("/coach/processing_coach/" + id, {
+            //       method ="POST",
+            //       credentials: 'same-origin',
+            //     });
+
+            //     if (response.ok) {
+            //       var data = await response.json();
+
+            //       aler(data.message);
+            //       window.location = data.url;
+            //     } else {
+            //       alert(response.status + ": " + response.statusText);
+            //     }
+
+            //   }
+
+            //   else {
+
+            //     alert("cancelled");
+
+
+            //   }
+
+            // };
+
+
+
+
+
+            //  };
+
+
+            async function cancelCoach(id) {
+
+              var r = confirm("Reject Coach?");
+
+              if (r) {
+
+                var response = await fetch("/coach/canel_coach/" + id, {
+                  method: "POST",
+                  credentials: 'same-origin',
+                });
+
+                if (response.ok) {
+                  var data = await response.json();
+                  alert(data.message);
+                  window.location = data.url;
+                } else {
+                  alert(response.status + ": " + response.statusText);
+                }
+
+              } else {
+                alert("cancelled");
+              }
+
+            };
+
+            var table = document.getElementsByTagName('table')[0],
+              rows = table.getElementsByTagName('tr'),
+              text = 'textContent' in document ? 'textContent' : 'innerText';
+
+            for (var i = 0, len = rows.length; i < len; i++) {
+              rows[i + 1].children[0][text] = (i + 1) + '.    ' + rows[i + 1].children[0][text];
             }
-
-          };
-
-          var table = document.getElementsByTagName('table')[0],
-            rows = table.getElementsByTagName('tr'),
-            text = 'textContent' in document ? 'textContent' : 'innerText';
-
-          for (var i = 0, len = rows.length; i < len; i++) {
-            rows[i + 1].children[0][text] = (i + 1) + '.    ' + rows[i + 1].children[0][text];
-          }
-        </script>
-      </div>
-    </section>
+          </script>
+        </div>
+      </section>

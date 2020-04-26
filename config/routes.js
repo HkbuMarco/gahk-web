@@ -97,6 +97,7 @@ module.exports.routes = {
   'POST /coach/update_coach/:id': 'CoachController.update_coach',
   'GET /coach/coach_record': 'CoachController.coach_record',
   'POST /coach/coach_record': 'CoachController.coach_record',
+  
   'GET /coach/coachform': 'CoachController.coachform',
   'POST /coach/coachform': 'CoachController.coachform',
   'GET /membership/confirm_Coach': 'CoachController.confirm',
@@ -126,6 +127,7 @@ module.exports.routes = {
   '/coach/confirm_coach/:id' : 'CoachController.confirm_coach',
   '/coach/canel_coach/:id' : 'CoachController.canel_coach',
   '/coach/cancel_coach/:id' : 'CoachController.cancel_coach',
+  '/coach/processing_coach/:id' : 'CoachController.processing_coach',
   '/index' : 'CoachController.coach_record',
   'GET /index': 'CoachController.coach_record',
   '/status' : 'CoachController.status',

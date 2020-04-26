@@ -15,9 +15,9 @@ module.exports.custom = {
   * Any other custom config this Sails app should use during development.    *
   *                                                                          *
   ***************************************************************************/
-  // mailgunDomain: 'transactional-mail.example.com',
-  // mailgunSecret: 'key-testkeyb183848139913858e8abd9a3',
-  // stripeSecret: 'sk_test_Zzd814nldl91104qor5911gjald',
+   mailgunDomain: 'sandbox63c005e5a3474c43bd0f3cf17f6f53b1.mailgun.org',
+  mailgunSecret: '1bdfb61d21e87e7828cf0ac5efbec44b-f135b0f1-a89d26a1',
+  mailgunFrom:'xuyuhaokaoka1@gmail.com',
   // …
 
 };

@@ -44,8 +44,10 @@ module.exports = {
     //  coach.ChiName=req.session.ChiName;
     //  coach.EngName=req.session.EngName;
      coach.FormNum=req.session.Email;
+     req.session.FormSub="yes";
+     User.FormSub="yes";
      
-
+     
 
       //  await Coach.create(req.body.Coach);
 
@@ -61,6 +63,13 @@ module.exports = {
       // html: html
       // });
 
+    
+      // await sails.helpers.sendSingleEmail({
+      //   to: coach.Email,
+      //   from: sails.config.custom.mailgunFrom,
+      //   subject: '已收到閣下的申請表',
+      //   text: 'Your message'
+      // });
 
 
       // return res.redirect('personal_login');
@@ -112,29 +121,66 @@ module.exports = {
     }
   },
 
+  processing_coach: async function (req, res) {
+    // var year = new Date().getFullYear();
+    var pid = parseInt(req.params.id) ||-1;
+  
+    // var num = (year % 100) * 1
+    
+    // var models = await Coach.find({ where: { CoachNo: { '>': num } }, sort: 'CoachNo DESC', limit: 1 });
+    // var model = models[0];
+    // if (models.length > 0) {
+      var model = await Coach.update(pid).set({
+        
+        comfirm_coach: '中',
+       
+       
+      }).fetch();
+
+    // } else {
+      // var model = await Person.findOne(pid);
+
+      // var model = await Coach.create(pid).fetch();
+
+     
+    
+      
+
+
+
+
+      // await Coach.update(model.id).set({
+        
+      //   comfirm_coach: '中',
+      // }).fetch();
+
+
+    // }
+    // model = model[0];
+
+    // var html = await sails.renderView('membership/confirm_Coach', { models: model, layout: false });
+    // await sails.helpers.sendSingleEmail({
+    //   to: '16228375@life.hkbu.edu.hk',
+    //   from: sails.config.custom.mailgunFrom,
+    //   subject: '已確認成為教練',
+    //   html: html
+    // });
+
+
+    if (req.wantsJSON) {
+      return res.json({ message: "Start to review successfully！", url: '/status' });    // for ajax request
+    }
+  },
+
 
 
   cancel_coach: async function (req, res) {
-    var year = new Date().getFullYear();
-    var pid = parseInt(req.params.id) || -1;
-    var num = (year % 100) * 1000;
-    var models = await Coach.find({ where: { CoachNo: { '>': num } }, sort: 'CoachNo DESC', limit: 1 });
-    var model = models[0];
-    if (models.length > 0) {
+   
       var model = await Coach.update(pid).set({
         comfirm_coach: '否',
       }).fetch();
 
 
-    } else {
-
-      model = await Coach.update(pid).set({
-        comfirm_coach: '否',
-      }).fetch();
-
-
-    }
-    model = model[0];
 
     // var html = await sails.renderView('membership/confirm_Coach', { models: model, layout: false });
     // await sails.helpers.sendSingleEmail({
@@ -149,6 +195,11 @@ module.exports = {
       return res.json({ message: "reject successfully！", url: '/status' });    // for ajax request
     }
   },
+
+
+  
+
+ 
 
   update_coach: async function (req, res) {
 

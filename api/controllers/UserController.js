@@ -49,6 +49,8 @@ module.exports = {
 
       req.session.EngName=user.EngName;
 
+      req.session.FormSub=user.FormSub;
+
       return res.redirect(req.query.r || '/user');
 
       //sails.log('Session: ' + JSON.stringify(user));

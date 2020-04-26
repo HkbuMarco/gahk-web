@@ -1,3 +1,5 @@
+
+ <% if (User.FormSub != 'yes') {%>
 <div class="default-page" style="background-color:	#FFFFE0">
 
   <table>
@@ -260,6 +262,9 @@
       <input type="radio" name="Coach[Gender]" value="女" required>
 
       <input type="hidden" name="Coach[FormNum]" value="<%= req.session.Email%>"
+      style="font-size:13px" required>
+
+      <input type="hidden" name="Coach[FormSubmit]" value="yes"
       style="font-size:13px" required>
 
  
@@ -952,8 +957,36 @@
     href="http://www.gahk.org.hk/doc/Coach%20registration%20Instruction%20(2018.11).pdf"><b>教練註冊須知</b></a></label>
 <br>
 <button type="submit" class="btn btn-primary">提交 Submit</button>
+
+
+
+
 </form>
 </div>
+
+<% } %>
+
+
+
+<% if (User.FormSub == 'yes') {%>
+
+<td>申請表已經提交，可到審批列表查看審批狀態。</td>
+
+  <% } %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
   function handleFile(files) {
     const file = files[0];

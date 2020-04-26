@@ -25,6 +25,11 @@ module.exports = {
       type: 'string'
     },
 
+    FormSub:{
+
+      type:'string'
+    },
+
     role: {
       type: 'string',
       isIn: ['admin', 'user', 'member', 'athelete', 'coach', 'visitor'],
