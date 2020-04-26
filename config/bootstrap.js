@@ -18,8 +18,9 @@ module.exports.bootstrap = async function(done) {
 
   const admin = await User.findOne({Username:'admin1'});
   if (!admin) {
-    await User.create({Username:'admin1', Password:await bcrypt.hash('hkbu123456', 10), role:'admin',ChiName:'管理員',EngName:'Administrator',Email:'kenny@admin.com',Date:new Date()});
-    await User.create({Username:'admin2', Password:await bcrypt.hash('hkbu123456', 10), role:'admin',ChiName:'管理員',EngName:'Administrator',Email:'17228786@life.hkbu.edu.hk',Date:new Date()});
+    await User.create({Username:'admin1', Password:await bcrypt.hash('hkbu123456', 10), role:'admin',ChiName:'管理員1',EngName:'Administrator',Email:'kenny@admin.com',Date:new Date()});
+    await User.create({Username:'admin2', Password:await bcrypt.hash('hkbu123456', 10), role:'admin',ChiName:'管理員2',EngName:'Administrator',Email:'17228786@life.hkbu.edu.hk',Date:new Date()});
+    await User.create({Username:'admin3', Password:await bcrypt.hash('hkbu123456', 10), role:'admin',ChiName:'管理員3',EngName:'Administrator',Email:'172287862@life.hkbu.edu.hk',Date:new Date()});
     await User.create({Username:'coach1', Password:await bcrypt.hash('hkbu123456', 10), role:'coach',ChiName:'陳大文',EngName:'Coach',Email:'coach@coach.com',Date:new Date()});
     await User.create({Username:'coach2', Password:await bcrypt.hash('hkbu123456', 10), role:'coach',ChiName:'陳大文',EngName:'Coach',Email:'coach2@coach.com',Date:new Date()});
   }

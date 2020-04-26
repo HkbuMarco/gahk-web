@@ -46,6 +46,7 @@ module.exports = {
      coach.FormNum=req.session.Email;
      req.session.FormSub="yes";
      User.FormSub="yes";
+     coach.FormSubmit="yes";
      
      
 
@@ -84,23 +85,60 @@ module.exports = {
   },
 
   confirm_coach: async function (req, res) {
+    
+    
+   
     var year = new Date().getFullYear();
     var pid = parseInt(req.params.id) || -1;
+    var modddd = await Coach.findOne(pid);
+    var ConP= modddd.ConfirmPoint;
+    console.log(ConP);
     var num = (year % 100) * 1000;
     var models = await Coach.find({ where: { CoachNo: { '>': num } }, sort: 'CoachNo DESC', limit: 1 });
     var model = models[0];
-    if (models.length > 0) {
+    if (models.length > 0 && ConP==2) {
       var model = await Coach.update(pid).set({
+       
+       
         CoachNo: model.CoachNo + 1,
-        comfirm_coach: '是',
+        ConfirmPoint:ConP+1,
+        
+        
       }).fetch();
 
 
-    } else {
+    } 
+   else if (models.length > 0 && ConP<=1) {
+      var model = await Coach.update(pid).set({
+       
+       
+       
+        ConfirmPoint:ConP+1,
+        
+        
+      }).fetch();
+
+
+    } 
+    
+else if(models.length==0&&ConP ==2){
 
       model = await Coach.update(pid).set({
         CoachNo: num + 1,
-        comfirm_coach: '是',
+        ConfirmPoint:ConP+1,
+        
+      }).fetch();
+
+
+    }
+
+
+    else if(models.length == 0&&ConP <=1){
+
+      model = await Coach.update(pid).set({
+        
+        ConfirmPoint:ConP+1,
+        
       }).fetch();
 
 

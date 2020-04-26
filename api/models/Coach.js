@@ -109,6 +109,11 @@ module.exports = {
 
     },
 
+    ConfirmPoint:{
+        type:'number',
+        defaultsTo: 0
+    },
+
     Birthd:{
       type:'ref',
       columnType: 'date'

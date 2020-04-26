@@ -11,6 +11,7 @@
         <tr>
           <th scope="col"># </th>
           <th scope="col">教練編號</th>
+
           <th scope="col">類別</th>
           <th scope="col">中文名</th>
           <th scope="col">結果</th>
@@ -18,24 +19,43 @@
         </tr>
       </thead>
       <tbody>
-        <% coach.forEach(function(model){ %>
+        <% coach.forEach(function(model) { %>
+        <% if (model.ChiName != ""&& model.comfirm_coach==""&&model.ConfirmPoint==0){ %>
+        <tr>
+          <th scope="row"></th>
 
-          <% if(model.ChiName!=""&& model.comfirm_coach=="中"){%>
+
+          <td>waiting...</td>
+
+
+          <td><%= model.New_coach %></td>
+
+
+          <td><a href="/coach/update_coach/<%=model.id%>"> <%= model.ChiName %> </a></td>
+          <!-- <% if (model.comfirm_coach == "" ){ %> -->
+
+          <td>待審批</td>
+
+          <td><button type="button" class="btn btn-primary" onclick="processingCoach('<%= model.id%>')">開始處理 </button>
+
+
+
+            <!-- <% }
+            else if (model.comfirm_coach == "是" ){ %>
+            <td>已審批</td>
+            <td><button type="button" class="btn btn-primary">asdsd</button></td>
   
-  
-          <tr>
-            <th scope="row"></th>
-            <td>waiting...</td>
-            <td><%=model.New_coach%></td>
-            <td> <a href="/coach/update_coach/<% model.id%>"> <%=model.ChiName%> </a> </td>
-            <td>處理中</td>
-            <td><button type="button" class="btn btn-secondary" onclick="confirmCoach('<% model.id%>')">審批 </button></td>
-            <td><button type="button" class="btn btn-danger" onclick="cancelCoach('<%model.id%>')">拒絕</button> </td>
-          </tr>
-  
-          <%}%>
-          <%});%>
-  
+            <% } else if (model.comfirm_coach == "否" ){ %>
+            <td>已拒絕</td>
+            <td><button type="button" class="btn btn-primary">已拒絕</button></td>
+            <%}%> -->
+
+        </tr>
+
+        <%}%>
+            <% }); %>
+
+
 
 
 
@@ -46,41 +66,56 @@
 
       <tbody>
 
-        
-        <% coach.forEach(function(model) { %>
-          <% if (model.ChiName != ""&& model.comfirm_coach==""){ %>
-          <tr>
-  
-            <th scope="row"></th>
-            <td>waiting...</td>
-            <td><%= model.New_coach %></td>
-            <td><a href="/coach/update_coach/<%=model.id%>"> <%= model.ChiName %> </a></td>
-            <!-- <% if (model.comfirm_coach == "" ){ %> -->
-            <td>待審批</td>
-            <td><button type="button" class="btn btn-primary" onclick="processingCoach('<%= model.id%>')">開始處理 </button>
-            </td>
-            </td>
-            <td><button type="button" class="btn btn-secondary" onclick="confirmCoach('<%= model.id%>')">審批</button></td>
-  
-            <td><button type="button" class="btn btn-danger" onclick="cancelCoach('<%= model.id%>')">拒絕</button></td>
-  
-            <!-- <% }
-            else if (model.comfirm_coach == "是" ){ %>
-            <td>已審批</td>
-            <td><button type="button" class="btn btn-primary">asdsd</button></td>
-  
-            <% } else if (model.comfirm_coach == "否" ){ %>
-            <td>已拒絕</td>
-            <td><button type="button" class="btn btn-primary">已拒絕</button></td>
-            <%}%> -->
-  
-          </tr>
-  
+
+        <% coach.forEach(function(model){ %>
+
+        <% if(model.ChiName!=""&& model.comfirm_coach=="中"&&model.ConfirmPoint<=2){%>
+
+
+        <tr>
+          <th>#.</th>
+          <td></td>
+          <td>waiting...</td>
+          <td></td>
+          <td></td>
+          <td><%=model.New_coach%></td>
+          <td></td>
+          <td><a href="/coach/update_coach/<%=model.id%>"> <%= model.ChiName %> </a></td>
+          <td></td>
+          <% if(model.ConfirmPoint==0){
+             %>
+          <td></td>
+          <td></td>
+          <%
+            }else if(model.ConfirmPoint==1){
+
+              %>
+             
+          <td>*</td>
+
+          
+          <%
+            }else if(model.ConfirmPoint==2){%>
+
+          <td>* *</td>
           <%}%>
-            <% }); %>
+
+            
+           
+            <td></td>
+            <td><button type="button" class="btn btn-secondary" onclick="confirmCoach('<%= model.id%>')">審批</button>
+          </td>
+
+          <td><button type="button" class="btn btn-danger" onclick="cancelCoach('<%= model.id%>')">拒絕</button></td>
+        </tr>
+
+        <%}%>
+          <%});%>
 
 
-        
+
+
+
 
       </tbody>
 
@@ -96,8 +131,13 @@
       <% if (model.ChiName != ""&& model.comfirm_coach=="否"){ %>
       <tr>
         <th scope="row">√</th>
+
         <td> None </td>
+
+        <td> </td>
+        <td> </td>
         <td><%= model.New_coach %></td>
+
         <td><a href="/coach/update_coach/<%=model.id%>"> <%= model.ChiName %> </a></td>
         <% if (model.comfirm_coach == "是" ){ %>
         <td> 已審批</td>
@@ -131,13 +171,13 @@
 
 
 
-      <% if (model.ChiName != ""&& model.comfirm_coach=="是"){ %>
+      <% if (model.ChiName != ""&& model.ConfirmPoint>=3){ %>
       <tr>
         <th scope="row">√</th>
         <td>INDC<%=model.CoachNo%></td>
         <td><%= model.New_coach %></td>
         <td><a href="/coach/update_coach/<%=model.id%>"> <%= model.ChiName %> </a></td>
-        <% if (model.comfirm_coach == "是" ){ %>
+        <% if (model.ConfirmPoint>=3 ){ %>
         <td>已審批</td>
         <td>審批完畢</td>
 
