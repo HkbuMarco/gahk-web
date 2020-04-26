@@ -161,6 +161,7 @@ module.exports.routes = {
 
   'GET /user':'UserController.index',
   '/user/login':'UserController.login',
+  '/user/logout':'UserController.logout',
   '/user/update_user/:id': 'UserController.Update_User',
   'GET /user/detail/:id': 'UserController.detail',
   '/user/register': 'UserController.register',

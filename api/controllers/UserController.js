@@ -67,11 +67,20 @@ module.exports = {
 
   logout: async function (req, res) {
 
-    req.session.destroy((err) => {
-      if (err) {return res.serverError(err);}
-      return res.redirect('/');
+    req.session.destroy(function (err) {
+    
+        if (err) return res.serverError(err);
+        
+
+        // return res.ok("Log out successfully.");
+
+        
+       
+
+        return res.redirect("/coach");
+
     });
-  },
+},
 
   register: async function (req, res) {
     const firebaseAuth = require('firebase-admin').app('admin').auth();

@@ -1,5 +1,5 @@
 
- <% if (User.FormSub != 'yes') {%>
+ <% if (req.session.FormSub != 'yes') {%>
 <div class="default-page" style="background-color:	#FFFFE0">
 
   <table>
@@ -958,6 +958,8 @@
 <br>
 <button type="submit" class="btn btn-primary">提交 Submit</button>
 
+<button type="submit" class="btn btn-Secondary" onclick="message()">儲存 Save</button>
+
 
 
 
@@ -968,7 +970,7 @@
 
 
 
-<% if (User.FormSub == 'yes') {%>
+<% if (req.session.FormSub == 'yes') {%>
 
 <td>申請表已經提交，可到審批列表查看審批狀態。</td>
 
@@ -988,6 +990,12 @@
 
 
 <script>
+    function message() {
+        alert("儲存成功!!");
+    }
+
+
+
   function handleFile(files) {
     const file = files[0];
     if (!file.type.startsWith('image/') && !file.type == 'application/pdf') return;
