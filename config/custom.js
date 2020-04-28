@@ -15,9 +15,9 @@ module.exports.custom = {
   * Any other custom config this Sails app should use during development.    *
   *                                                                          *
   ***************************************************************************/
-   mailgunDomain: 'sandbox9e65993d89a84765ba84aaf0723d6c30.mailgun.org',
-  mailgunSecret: '3686d1b1a27043115c90211ae925ab88-f135b0f1-3587b1dd',
-  mailgunFrom:'17228786@life.hkbu.edu.hk',
+   mailgunDomain: 'sandboxa387a4e7e9bf458.mailgun.org',
+  mailgunSecret: '525a3fa140db14fd309-65b08458-5fab5ffc',
+  mailgunFrom:'gahk@cmail.com',
   // …
 
 };

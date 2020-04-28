@@ -111,7 +111,7 @@ module.exports = {
     if (models.length > 0 && ConP==2) {
       var model = await Coach.update(pid).set({
        
-       
+       comfirm_coach:'是',
         CoachNo: model.CoachNo + 1,
         ConfirmPoint:ConP+1,
         
@@ -138,6 +138,7 @@ else if(models.length==0&&ConP ==2){
       model = await Coach.update(pid).set({
         CoachNo: num + 1,
         ConfirmPoint:ConP+1,
+        comfirm_coach:'是',
         
       }).fetch();
 
@@ -541,7 +542,7 @@ else if(models.length==0&&ConP ==2){
 
     
     
-    var ws0 = XLSX.utils.json_to_sheet(models.filter(model=>model.ConfirmPoint!= 0).map(model => {
+    var ws0 = XLSX.utils.json_to_sheet(models.filter(model=>model.comfirm_coach=="").map(model => {
       return {
         point: model.comfirm_coach,
         教練編號: 'INDC' + model.CoachNo,
@@ -624,9 +625,9 @@ else if(models.length==0&&ConP ==2){
       }     
     }));
 
-       var ws1 = XLSX.utils.json_to_sheet(models.filter(model=>model.ConfirmPoint!= 3 && model.ConfirmPoint!= 0).map(model => {
+       var ws1 = XLSX.utils.json_to_sheet(models.filter(model=>model.comfirm_coach=="中").map(model => {
       return {
-        point: model.comfirm_coach,
+        point: model.ConfirmPoint,
         教練編號: 'INDC' + model.CoachNo,
         申請類別: model.New_coach,
 
