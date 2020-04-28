@@ -1,0 +1,10 @@
+<aside class="admin">
+  <section>
+    <h6 class="side-heading3"><span class="reflect" data-text="系統管理">系統管理</span></h6>
+    <ul class="list-unstyled">
+      <li><a class="side-button1 <%= req.path.startsWith('/admin/news') ? 'active':'' %>" href="/admin/news">最新消息</a></li>
+      <li><a class="side-button1 <%= req.path.startsWith('/admin/email') ? 'active':'' %>" href="/admin/email">電郵內文</a></li>
+      <li><a class="side-button1 <%= req.path.startsWith('/admin/user') ? 'active':'' %>" href="/admin/user">用戶管理</a></li>
+    </ul>
+  </section>
+</aside>
